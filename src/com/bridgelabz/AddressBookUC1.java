@@ -1,70 +1,86 @@
 package com.bridgelabz;
 
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
-public class AddressBookUC1 {
-    static Scanner sc = new Scanner(System.in);
-    static AddinBook book1 = new AddinBook();
-    static ArrayList<AddinBook> man1 = new ArrayList<AddinBook>();
+public class AddressBookUC1{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-    /*
-            here we are creation a method  for add contactmethod
-    */
-    public static void addContact() {
-        System.out.println("Enter first name");
-        String FN = book1.sc.nextLine();
-        book1.setFirstName(FN);
+        AddinBook book1 = new AddinBook();
+        AddressBookArray addArray = new AddressBookArray();
+        System.out.println("##########    Welcome to Address Book Program    ###########");
+        System.out.println("1: Add a new Contact to Address Book");
+        String op = "yes";
+        while (true){
+            System.out.println("1: Add Contact 2: Edit existing contact 3: Delete existing contact 4: View existing Contacts 5: Exit  Address Book");
+            System.out.print("Enter Option : ");
+            int opt = sc.nextInt();
+            sc.nextLine();
+            /*
+             * Case 1 will add new contact data.
+             * Case2 will edit the contact.
+             * Case3 will delete the contact data.
+             * Case4 will print all the data of that Arraylist.
+             * Case5 will exit from this loop.
+             */
+            switch (opt) {
+                case 1:
+                    while (op.equals("yes")) {
+                        System.out.print("Enter First Name : ");
+                        String fN = book1.sc.nextLine();
+                        book1.setFirstName(fN);
 
-        System.out.println("Enter last Name:");
-        String LS = book1.sc.nextLine();
-        book1.setLastName(LS);
+                        System.out.print("Enter Last Name : ");
+                        String lN = book1.sc.nextLine();
+                        book1.setLastName(lN);
 
-        System.out.println("Enter Mail ID:-");
-        String MI =book1.sc.nextLine();
-        book1.setEmail(MI);
-        System.out.print("Enter Cell Num : ");
-        String cell = book1.sc.nextLine();
-        book1.setCellNum(cell);
+                        System.out.print("Enter Email-id : ");
+                        String eId = book1.sc.nextLine();
+                        book1.setEmail(eId);
 
-        System.out.print("Enter City : ");
-        String city = book1.sc.nextLine();
-        book1.setCity(city);
+                        System.out.print("Enter Cell Num : ");
+                        String cell = book1.sc.nextLine();
+                        book1.setCellNum(cell);
 
-        System.out.print("Enter Zip : ");
-        String zIp = book1.sc.nextLine();
-        book1.setZip(zIp);
+                        System.out.print("Enter City : ");
+                        String city = book1.sc.nextLine();
+                        book1.setCity(city);
 
-        System.out.print("Enter Sate : ");
-        String state = book1.sc.nextLine();
-        book1.setState(state);
+                        System.out.print("Enter Zip : ");
+                        String zIp = book1.sc.nextLine();
+                        book1.setZip(zIp);
 
-        man1.add(book1);
-    }
-    //now we are Editing the Contact
-    public static void editContact(){
-        System.out.println("WELCOME TO EDIT ADDRESS BOOK PROGRAM");
-        System.out.println("ENTER NAME FOR CONFIRMATION:");
-        String name =sc.nextLine();
-        for(int i=0;i<man1.size();i++){
-            if(man1.get(i).getFirstName().equalsIgnoreCase(name)){
-                man1.remove(i);
-                addContact();
-                System.out.println("successfully Edit Data");
-            }else {
-                System.out.println("no data found in A-book");
+                        System.out.print("Enter Sate : ");
+                        String state = book1.sc.nextLine();
+                        book1.setState(state);
+
+                        System.out.println("Do you want Add more contact : ");
+                        op = sc.nextLine();
+
+                        AddressBookArray contact = new AddressBookArray(fN, lN, eId, cell, city, zIp, state);
+                        addArray.insertContact(contact);
+                    }
+                    break;
+                case 2:
+                    System.out.println("Enter Name of contact to edit : ");
+                    String nameToEdit = sc.nextLine();
+                    addArray.editContact(nameToEdit);
+                    break;
+                case 3:
+                    System.out.println("Enter Name of contact to Delete : ");
+                    String deleteCon = sc.nextLine();
+                    addArray.delete(deleteCon);
+                    break;
+                case 4:
+                    System.out.println("Contact List : ");
+                    addArray.printContactDetails();
+                    break;
+                case 5:
+                    System.exit(0);
+                    break;
+
             }
         }
     }
-
-    public static void main(String[] args) {
-        System.out.println("************* WELCOME TO ADDRSEES BOOK *********");
-        System.out.println("1. Added a new contact");
-        addContact();
-        editContact();
-        // now  we are printing method call from addin book
-        System.out.println(book1.printString());
-
-    }
-
 }
